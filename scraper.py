@@ -6,17 +6,16 @@ soup = BeautifulSoup(page_to_scrape.text, "html.parser")
 
 
 main_div = soup.find("div", attrs={"data-type":"players"})
-firsts = main_div.find_all("span", {"class":"first"},limit=5)
-lasts = main_div.find_all("span", {"class":"last"},limit=5)
-countrys = main_div.find_all("div", {"class":"country"},limit=5)
-ranks = main_div.find_all("div", {"class":"rank"},limit=5)
+firsts = main_div.find_all("span", {"class":"first"})
+lasts = main_div.find_all("span", {"class":"last"})
+countrys = main_div.find_all("div", {"class":"country"})
+ranks = main_div.find_all("div", {"class":"rank"})
 
-for first, last in zip(firsts,lasts):
-    player_scrape = requests.get('https://en.wikipedia.org/wiki/'+first.text+"_"+last.text)
-    soup = BeautifulSoup(player_scrape.text, "html.parser")
-    bdays = soup.find("span",attrs={"class":"bday"})
+# for first, last in zip(firsts,lasts):
+#     player_scrape = requests.get('https://en.wikipedia.org/wiki/'+first.text+"_"+last.text)
+#     soup = BeautifulSoup(player_scrape.text, "html.parser")
+#     bdays = soup.find("span",attrs={"class":"bday"})
 
-for rank, first, last, country, bday in zip(ranks, firsts,lasts,countrys,bdays):
-    print(rank.text + ": " + first.text + " " + last.text + " - " + country.text + " - " + bday.text)
+for rank, first, last, country in zip(ranks, firsts,lasts,countrys):
+    print(rank.text + ": " + first.text + " " + last.text + " - " + country.text)
     print('https://www.azbilliards.com/person/'+first.text+"-"+last.text)
-    
